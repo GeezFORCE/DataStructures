@@ -11,14 +11,14 @@ int main()
     struct node *creation();
     void ins_node();
     void display_node();
-    void selection_sort();
+    void sort_list();
     int choice;
     while (1)
     {
         cout << "MENU\n"
              << "-------------\n"
              << "1.Insertion\n"
-             << "2.Selection Sort\n"
+             << "2.Sort\n"
              << "3.Display\n"
              << "Enter Choice : ";
         cin >> choice;
@@ -28,7 +28,7 @@ int main()
             ins_node();
             break;
         case 2:
-            selection_sort();
+            sort_list();
             break;
         case 3:
             display_node();
@@ -74,19 +74,25 @@ void display_node()
     }
     cout << endl;
 }
-void selection_sort()
-{
-    int swap;
-    struct node *curr{start},*next{start->link},*min{NULL};
-    for(curr=start;curr!=NULL;curr=curr->link){
-        min=curr;
-        for(next=curr->link;next!=NULL;next=next->link){
-            if(next->data<min->data)
-                min=next;
-        }
-        swap=min->data;
-        min->data=curr->data;
-        curr->data=swap;
+void sort_list()
+{   
+    struct node *head{start};
+    vector <int> contents;
+    for(;head!=NULL;head=head->link)
+        contents.push_back(head->data);
+    sort(contents.begin(),contents.end());
+    head=start;
+    for(auto &i:contents){
+        head->data=i;
+        head=head->link;
     }
     display_node();
 }
+//Reversing linked list
+//reverse(contents.begin(),contents.end());
+/*alt output 
+    for(int i=contents.size()-1;i>=0;i--){
+        head->data=contents.at(i);
+        head=head->link;
+    }
+*/
