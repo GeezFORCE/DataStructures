@@ -3,10 +3,10 @@ using namespace std;
 const int SIZE = 50;
 int main()
 {
-    void display_stack(int[], int);
-    bool empty_stack(int[], int);
-    int top_stack(int[], int);
-    int s[SIZE], choice, top{-1};
+    void display_queue(int[], int, int);
+    bool empty_queue(int[], int, int);
+    //int top_queue(int[], int);
+    int q[SIZE], choice, front{-1}, rear{-1};
     while (1)
     {
         cout << "MENU\n"
@@ -14,8 +14,7 @@ int main()
              << "1.Insertion\n"
              << "2.Deletion\n"
              << "3.Display\n"
-             << "4.Top of stack\n"
-             << "5.Check if Empty\n"
+             << "4.Check if Empty\n"
              << "Choice : ";
         cin >> choice;
         cout << endl;
@@ -23,36 +22,35 @@ int main()
         {
         case 1:
         {
-            top++;
+            rear++;
+            if (front == -1)
+                front++;
             cout << "Enter the data : ";
-            cin >> s[top];
+            cin >> q[rear];
             cout << endl;
         }
         break;
         case 2:
         {
-            if (empty_stack(s, top))
+            if (empty_queue(q, front, rear))
                 cout << "No Element to delete\n";
             else
             {
-                cout << "Deleted Element : " << s[top] << endl;
-                s[top] = 0;
-                top--;
+                cout << "Deleted Element : " << q[front] << endl;
+                q[front] = 0;
+                front++;
             }
         }
         break;
         case 3:
-            display_stack(s, top);
+            display_queue(q, front, rear);
             break;
         case 4:
-            cout << "Top of stack is : " << top_stack(s, top) << endl;
-            break;
-        case 5:
         {
-            if (empty_stack(s, top))
-                cout << "Stack is empty\n";
+            if (empty_queue(q, front, rear))
+                cout << "Queue is empty\n";
             else
-                cout << "Stack is not empty\n";
+                cout << "Queue is not empty\n";
         }
         break;
         default:
@@ -66,28 +64,24 @@ int main()
     }
     return 0;
 }
-void display_stack(int s[], int top)
+void display_queue(int q[], int front, int rear)
 {
-    bool empty_stack(int[], int);
-    if (empty_stack(s, top))
-        cout << "Stack is Empty\n";
+    bool empty_queue(int[], int, int);
+    if (empty_queue(q, front, rear))
+        cout << "Queue is Empty\n";
     else
     {
-        for (int i = top; i >= 0; i--)
+        for (int i = front; i <= rear; i++)
         {
-            cout << " | " << s[i] << " | " << endl;
+            cout << " | " << q[i] << " | " << endl;
         }
         cout << " ---- " << endl;
     }
 }
-bool empty_stack(int s[], int top)
+bool empty_queue(int q[], int front, int rear)
 {
-    if (top == -1)
+    if (front == -1 || front == rear)
         return true;
     else
         return false;
-}
-int top_stack(int s[], int top)
-{
-    return (s[top]);
 }
