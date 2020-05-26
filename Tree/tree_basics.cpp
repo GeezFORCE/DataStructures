@@ -78,6 +78,31 @@ void postorder(node *p)
     }
 }
 
+void levelorder(node *p)
+{
+    node *curr = root;
+    queue<node *> qu;
+    if (curr)
+        cout << curr->data << " ";
+    qu.push(curr);
+    while (!qu.empty())
+    {
+        curr = qu.front();
+        qu.pop();
+        if (curr->left_child)
+        {
+            cout << curr->left_child->data << " ";
+            qu.push(curr->left_child);
+        }
+        if (curr->right_child)
+        {
+            cout << curr->right_child->data << " ";
+            qu.push(curr->right_child);
+        }
+    }
+    cout << endl;
+}
+
 int main()
 {
     create_tree();
@@ -89,6 +114,9 @@ int main()
     cout << endl
          << "Postorder traversal : ";
     postorder(root);
+    cout << endl
+         << "Levelorder traversal : ";
+    levelorder(root);
     cout << endl;
     return 0;
 }
