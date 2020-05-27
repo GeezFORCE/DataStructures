@@ -107,11 +107,7 @@ int count(node *p)
 {
     int left, right;
     if (p)
-    {
-        left = count(p->left_child);
-        right = count(p->right_child);
-        return left + right + 1;
-    }
+        return count(p->left_child) + count(p->right_child) + 1;
     return 0;
 }
 
@@ -119,11 +115,7 @@ int sum(node *p)
 {
     int left, right;
     if (p)
-    {
-        left = sum(p->left_child);
-        right = sum(p->right_child);
-        return left + right + p->data;
-    }
+        return sum(p->left_child) + sum(p->right_child) + p->data;
     return 0;
 }
 
@@ -132,10 +124,8 @@ int count_deg_2(node *p)
     int left, right;
     if (p)
     {
-        left = count_deg_2(p->left_child);
-        right = count_deg_2(p->right_child);
         if (p->left_child && p->right_child)
-            return left + right + 1;
+            return count_deg_2(p->left_child) + count_deg_2(p->right_child)  + 1;
     }
     return 0;
 }
@@ -145,12 +135,10 @@ int height(node *p)
     int left, right;
     if (p)
     {
-        left = height(p->left_child);
-        right = height(p->right_child);
-        if (left < right)
-            return left + 1;
+        if (height(p->left_child) < height(p->right_child))
+            return height(p->left_child) + 1;
         else
-            return right + 1;
+            return height(p->right_child) + 1;
     }
     return 0;
 }
