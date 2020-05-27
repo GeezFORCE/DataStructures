@@ -122,14 +122,17 @@ int count_deg_2(node *p)
     if (p)
     {
         if (p->left_child && p->right_child)
-            return count_deg_2(p->left_child) + count_deg_2(p->right_child)  + 1;
+            return count_deg_2(p->left_child) + count_deg_2(p->right_child) + 1;
     }
     return 0;
 }
 
-int count_leaf_nodes(node *p){
-    if(p){
-        if(p->left_child==NULL && p->right_child==NULL)
+//To count internal nodes change condition to || instead of &&
+int count_leaf_nodes(node *p)
+{
+    if (p)
+    {
+        if (p->left_child == NULL && p->right_child == NULL)
             return count_leaf_nodes(p->left_child) + count_leaf_nodes(p->right_child) + 1;
         else
             return count_leaf_nodes(p->left_child) + count_leaf_nodes(p->right_child);
