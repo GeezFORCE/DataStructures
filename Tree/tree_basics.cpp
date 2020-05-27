@@ -105,7 +105,6 @@ void levelorder(node *p)
 //Count is similar to postorder
 int count(node *p)
 {
-    int left, right;
     if (p)
         return count(p->left_child) + count(p->right_child) + 1;
     return 0;
@@ -113,7 +112,6 @@ int count(node *p)
 
 int sum(node *p)
 {
-    int left, right;
     if (p)
         return sum(p->left_child) + sum(p->right_child) + p->data;
     return 0;
@@ -121,7 +119,6 @@ int sum(node *p)
 
 int count_deg_2(node *p)
 {
-    int left, right;
     if (p)
     {
         if (p->left_child && p->right_child)
@@ -130,9 +127,18 @@ int count_deg_2(node *p)
     return 0;
 }
 
+int count_leaf_nodes(node *p){
+    if(p){
+        if(p->left_child==NULL && p->right_child==NULL)
+            return count_leaf_nodes(p->left_child) + count_leaf_nodes(p->right_child) + 1;
+        else
+            return count_leaf_nodes(p->left_child) + count_leaf_nodes(p->right_child);
+    }
+    return 0;
+}
+
 int height(node *p)
 {
-    int left, right;
     if (p)
     {
         if (height(p->left_child) < height(p->right_child))
@@ -165,5 +171,7 @@ int main()
          << "Sum of nodes : " << sum(root);
     cout << endl
          << "Height of tree : " << height(root) << endl;
+    cout << endl
+         << "Number of leaf nodes : " << count_leaf_nodes(root);
     return 0;
 }
