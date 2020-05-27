@@ -25,7 +25,6 @@ void create_tree()
     node *curr, *temp;
     cout << "Enter the root : ";
     root = creation();
-    cout << endl;
     q.push(root);
     while (!q.empty())
     {
@@ -103,6 +102,19 @@ void levelorder(node *p)
     cout << endl;
 }
 
+//Count is similar to postorder
+int count(node *p)
+{
+    int left, right;
+    if (p)
+    {
+        left = count(p->left_child);
+        right = count(p->right_child);
+        return left + right + 1;
+    }
+    return 0;
+}
+
 int main()
 {
     create_tree();
@@ -117,6 +129,7 @@ int main()
     cout << endl
          << "Levelorder traversal : ";
     levelorder(root);
-    cout << endl;
+    cout << endl
+         << "Number of nodes : " << count(root) << endl;
     return 0;
 }
