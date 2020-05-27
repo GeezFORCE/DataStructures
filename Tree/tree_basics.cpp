@@ -169,6 +169,8 @@ int main()
     cout << endl
          << "Number of nodes : " << count(root);
     cout << endl
+         << "Number of node with degree 1 : " << count_deg_1(root);
+    cout << endl
          << "Number of node with degree 2 : " << count_deg_2(root);
     cout << endl
          << "Sum of nodes : " << sum(root);
