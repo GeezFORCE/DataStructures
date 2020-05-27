@@ -115,6 +115,46 @@ int count(node *p)
     return 0;
 }
 
+int sum(node *p)
+{
+    int left, right;
+    if (p)
+    {
+        left = sum(p->left_child);
+        right = sum(p->right_child);
+        return left + right + p->data;
+    }
+    return 0;
+}
+
+int count_deg_2(node *p)
+{
+    int left, right;
+    if (p)
+    {
+        left = count_deg_2(p->left_child);
+        right = count_deg_2(p->right_child);
+        if (p->left_child && p->right_child)
+            return left + right + 1;
+    }
+    return 0;
+}
+
+int height(node *p)
+{
+    int left, right;
+    if (p)
+    {
+        left = height(p->left_child);
+        right = height(p->right_child);
+        if (left < right)
+            return left + 1;
+        else
+            return right + 1;
+    }
+    return 0;
+}
+
 int main()
 {
     create_tree();
@@ -130,6 +170,12 @@ int main()
          << "Levelorder traversal : ";
     levelorder(root);
     cout << endl
-         << "Number of nodes : " << count(root) << endl;
+         << "Number of nodes : " << count(root);
+    cout << endl
+         << "Number of node with degree 2 : " << count_deg_2(root);
+    cout << endl
+         << "Sum of nodes : " << sum(root);
+    cout << endl
+         << "Height of tree : " << height(root) << endl;
     return 0;
 }
