@@ -55,7 +55,7 @@ void preorder(node *p)
     {
         if (p)
         {
-            cout << p->data<<" ";
+            cout << p->data << " ";
             st.push(p);
             p = p->left_child;
         }
@@ -82,12 +82,12 @@ void inorder(node *p)
         {
             p = st.top();
             st.pop();
-            cout << p->data << " " ;
+            cout << p->data << " ";
             p = p->right_child;
         }
     }
 }
-
+/*
 void postorder(node *p)
 {
     if (p)
@@ -95,6 +95,29 @@ void postorder(node *p)
         postorder(p->left_child);
         postorder(p->right_child);
         cout << p->data << " ";
+    }
+}
+*/
+void postorder(node *p)
+{
+    stack<int> st;
+    stack<node *> nodes;
+    if (p == root)
+        nodes.push(root);
+    while (!nodes.empty())
+    {
+        node *curr = nodes.top();
+        nodes.pop();
+        st.push(curr->data);
+        if (curr->left_child)
+            nodes.push(curr->left_child);
+        if (curr->right_child)
+            nodes.push(curr->right_child);
+    }
+    while (!st.empty())
+    {
+        cout << st.top() << " ";
+        st.pop();
     }
 }
 
