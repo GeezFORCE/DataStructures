@@ -144,10 +144,12 @@ int height(node *p)
 {
     if (p)
     {
-        if (height(p->left_child) < height(p->right_child))
-            return height(p->left_child) + 1;
+        int left_height = height(p->left_child);
+        int right_height = height(p->right_child);
+        if (left_height < right_height)
+            return left_height + 1;
         else
-            return height(p->right_child) + 1;
+            return right_height + 1;
     }
     return 0;
 }
@@ -162,6 +164,16 @@ void invertBinaryTree(node *p)
     }
 }
 
+int diameter(node *p)
+{   
+    if(p == NULL)
+        return 0;
+    int left_height = height(p->left_child);
+    int right_height = height(p->right_child);
+    int left_diameter = diameter(p->left_child);
+    int right_diameter = diameter(p->right_child);
+    return max(left_height + right_height + 1, max(left_diameter, right_diameter));
+}
 int main()
 {
     create_tree();
@@ -178,8 +190,8 @@ int main()
     levelorder(root);
     cout << endl
          << "Number of nodes : " << count(root);
-   // cout << endl
-     //    << "Number of node with degree 1 : " << count_deg_1(root);
+    // cout << endl
+    //    << "Number of node with degree 1 : " << count_deg_1(root);
     cout << endl
          << "Number of node with degree 2 : " << count_deg_2(root);
     cout << endl
@@ -188,6 +200,8 @@ int main()
          << "Height of tree : " << height(root) << endl;
     cout << endl
          << "Number of leaf nodes : " << count_leaf_nodes(root);
+    cout << endl
+         << "Diameter is : " << diameter(root);
     cout << endl
          << "Tree before inversion/ mirroring : ";
     levelorder(root);
