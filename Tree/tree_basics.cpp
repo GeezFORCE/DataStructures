@@ -165,8 +165,8 @@ void invertBinaryTree(node *p)
 }
 
 int diameter(node *p)
-{   
-    if(p == NULL)
+{
+    if (p == NULL)
         return 0;
     int left_height = height(p->left_child);
     int right_height = height(p->right_child);
@@ -174,6 +174,31 @@ int diameter(node *p)
     int right_diameter = diameter(p->right_child);
     return max(left_height + right_height + 1, max(left_diameter, right_diameter));
 }
+
+void branchSumHelper(node *tree, int currentSum, vector<int> *result)
+{
+    if (tree)
+    {
+        currentSum += tree->data;
+        if (tree->left_child == NULL && tree->right_child == NULL)
+        {
+            (*result).push_back(currentSum);
+            currentSum = 0;
+        }
+        branchSumHelper(tree->left_child, currentSum, result);
+        branchSumHelper(tree->right_child, currentSum, result);
+    }
+}
+
+void branchSum(node *root)
+{
+    int currentSum = 0;
+    vector<int> branchSumList;
+    branchSumHelper(root, currentSum, &branchSumList);
+    for (auto i : branchSumList)
+        cout << i << " ";
+}
+
 int main()
 {
     create_tree();
@@ -202,6 +227,10 @@ int main()
          << "Number of leaf nodes : " << count_leaf_nodes(root);
     cout << endl
          << "Diameter is : " << diameter(root);
+    cout << endl
+         << "Branch Sums : ";
+    branchSum(root);
+    cout << endl;
     cout << endl
          << "Tree before inversion/ mirroring : ";
     levelorder(root);
