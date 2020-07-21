@@ -152,6 +152,16 @@ int height(node *p)
     return 0;
 }
 
+void invertBinaryTree(node *p)
+{
+    if (p)
+    {
+        swap(p->left_child, p->right_child);
+        invertBinaryTree(p->left_child);
+        invertBinaryTree(p->right_child);
+    }
+}
+
 int main()
 {
     create_tree();
@@ -168,8 +178,8 @@ int main()
     levelorder(root);
     cout << endl
          << "Number of nodes : " << count(root);
-    cout << endl
-         << "Number of node with degree 1 : " << count_deg_1(root);
+   // cout << endl
+     //    << "Number of node with degree 1 : " << count_deg_1(root);
     cout << endl
          << "Number of node with degree 2 : " << count_deg_2(root);
     cout << endl
@@ -178,5 +188,12 @@ int main()
          << "Height of tree : " << height(root) << endl;
     cout << endl
          << "Number of leaf nodes : " << count_leaf_nodes(root);
+    cout << endl
+         << "Tree before inversion/ mirroring : ";
+    levelorder(root);
+    invertBinaryTree(root);
+    cout << endl
+         << "Tree after inversion / mirroring : ";
+    levelorder(root);
     return 0;
 }
