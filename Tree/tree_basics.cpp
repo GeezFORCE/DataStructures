@@ -1,14 +1,18 @@
 #include <bits/stdc++.h>
 using namespace std;
+
+// Stucture of Node in the tree
 struct node
 {
     int data;
     node *left_child;
     node *right_child;
 };
+// Pointer to the root node :: GLOBAL
 node *root = NULL;
 queue<node *> q;
 
+// Function to create a node to be inserted into the tree, returns a pointer to newly created node.
 node *creation()
 {
     node *new_node = new node;
@@ -19,6 +23,7 @@ node *creation()
     return new_node;
 }
 
+// Function used to create the tree, handles the insertion
 void create_tree()
 {
     int data;
@@ -47,6 +52,11 @@ void create_tree()
     }
 }
 
+// TRAVERSALS
+
+// Only- Recursion
+
+// Recursive Pre-Order
 void preorder(node *p)
 {
     if (p)
@@ -57,6 +67,7 @@ void preorder(node *p)
     }
 }
 
+// Recursive In-Order
 void inorder(node *p)
 {
     if (p)
@@ -67,6 +78,7 @@ void inorder(node *p)
     }
 }
 
+// Recursive Post-Order
 void postorder(node *p)
 {
     if (p)
@@ -77,6 +89,7 @@ void postorder(node *p)
     }
 }
 
+// Iterative Level - Order
 void levelorder(node *p)
 {
     node *curr = root;
@@ -102,7 +115,8 @@ void levelorder(node *p)
     cout << endl;
 }
 
-//Count is similar to postorder
+// Function to count the number of nodes in the tree
+// Count is similar to postorder
 int count(node *p)
 {
     if (p)
@@ -110,6 +124,7 @@ int count(node *p)
     return 0;
 }
 
+// Function to calculate the sum of all the node values in a tree
 int sum(node *p)
 {
     if (p)
@@ -117,6 +132,7 @@ int sum(node *p)
     return 0;
 }
 
+// Count the number of nodes having degree 2
 int count_deg_2(node *p)
 {
     if (p)
@@ -127,7 +143,8 @@ int count_deg_2(node *p)
     return 0;
 }
 
-//To count internal nodes change condition to || instead of &&
+// Count the number of leaf nodes
+// To count internal nodes change condition to || instead of &&
 int count_leaf_nodes(node *p)
 {
     if (p)
@@ -140,6 +157,7 @@ int count_leaf_nodes(node *p)
     return 0;
 }
 
+//  Function to Count the height of the tree
 int height(node *p)
 {
     if (p)
@@ -154,6 +172,7 @@ int height(node *p)
     return 0;
 }
 
+// Function to invert or mirror the tree
 void invertBinaryTree(node *p)
 {
     if (p)
@@ -164,6 +183,7 @@ void invertBinaryTree(node *p)
     }
 }
 
+// Function to find the diameter of the tree
 int diameter(node *p)
 {
     if (p == NULL)
@@ -175,6 +195,9 @@ int diameter(node *p)
     return max(left_height + right_height + 1, max(left_diameter, right_diameter));
 }
 
+// Function to find the sum of each branch of the tree
+
+// Helper Function for branch Sum
 void branchSumHelper(node *tree, int currentSum, vector<int> *result)
 {
     if (tree)
@@ -190,6 +213,7 @@ void branchSumHelper(node *tree, int currentSum, vector<int> *result)
     }
 }
 
+// Main Function for branch sums
 void branchSum(node *root)
 {
     int currentSum = 0;
@@ -197,6 +221,22 @@ void branchSum(node *root)
     branchSumHelper(root, currentSum, &branchSumList);
     for (auto i : branchSumList)
         cout << i << " ";
+}
+
+// Functions to find the Node Depths
+
+// Helper Function
+int nodeDepthsHelper(node *tree, int nodeDepthSum)
+{
+    if (tree)
+        return nodeDepthSum + nodeDepthsHelper(tree->left_child, nodeDepthSum) + nodeDepthsHelper(tree->right_child, nodeDepthSum);
+    return 0;
+}
+// Main Function
+int nodeDepths(node *root)
+{
+    int nodeDepthSum = 0;
+    return nodeDepthsHelper(root, nodeDepthSum);
 }
 
 int main()
@@ -231,6 +271,8 @@ int main()
          << "Branch Sums : ";
     branchSum(root);
     cout << endl;
+    cout << endl
+         << nodeDepths(root);
     cout << endl
          << "Tree before inversion/ mirroring : ";
     levelorder(root);
