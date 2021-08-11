@@ -4,6 +4,7 @@
 <p align="center">
     Repository of implementations of various Data Structures and Algorithms in C & C++.
 </p>
+
 ## Data Structures
 - Singly Linked List
 - Doubly Linked List
